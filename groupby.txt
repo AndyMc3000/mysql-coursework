@@ -1,0 +1,151 @@
+mysql> Challenge 1: How many customers do we have in the City of Berlin Expected : 2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Challenge 1: How many customers do we have in the City of Berlin Expected : 2' at line 1
+mysql> show columns in Customer;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| CustomerId   | int         | NO   | PRI | NULL    | auto_increment |
+| FirstName    | varchar(40) | NO   |     | NULL    |                |
+| LastName     | varchar(20) | NO   |     | NULL    |                |
+| Company      | varchar(80) | YES  |     | NULL    |                |
+| Address      | varchar(70) | YES  |     | NULL    |                |
+| City         | varchar(40) | YES  |     | NULL    |                |
+| State        | varchar(40) | YES  |     | NULL    |                |
+| Country      | varchar(40) | YES  |     | NULL    |                |
+| PostalCode   | varchar(10) | YES  |     | NULL    |                |
+| Phone        | varchar(24) | YES  |     | NULL    |                |
+| Fax          | varchar(24) | YES  |     | NULL    |                |
+| Email        | varchar(60) | NO   |     | NULL    |                |
+| SupportRepId | int         | YES  | MUL | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+13 rows in set (0.00 sec)
+
+mysql> select Customer.City from Customer
+    -> where City = "Berlin"
+    -> Count(*);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Count(*)' at line 3
+mysql> select Customer.City, count(*) where City = "Berlin";
+ERROR 1109 (42S02): Unknown table 'Customer' in field list
+mysql> select CustomerId, count(*) from Customer
+    -> group by City;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Chinook.Customer.CustomerId' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select Customer.City, count(*) from Customer
+    -> group by CustomerId;
++-----------------------+----------+
+| City                  | count(*) |
++-----------------------+----------+
+| São José dos Campos   |        1 |
+| Stuttgart             |        1 |
+| Montréal              |        1 |
+| Oslo                  |        1 |
+| Prague                |        1 |
+| Prague                |        1 |
+| Vienne                |        1 |
+| Brussels              |        1 |
+| Copenhagen            |        1 |
+| São Paulo             |        1 |
+| São Paulo             |        1 |
+| Rio de Janeiro        |        1 |
+| Brasília              |        1 |
+| Edmonton              |        1 |
+| Vancouver             |        1 |
+| Mountain View         |        1 |
+| Redmond               |        1 |
+| New York              |        1 |
+| Cupertino             |        1 |
+| Mountain View         |        1 |
+| Reno                  |        1 |
+| Orlando               |        1 |
+| Boston                |        1 |
+| Chicago               |        1 |
+| Madison               |        1 |
+| Fort Worth            |        1 |
+| Tucson                |        1 |
+| Salt Lake City        |        1 |
+| Toronto               |        1 |
+| Ottawa                |        1 |
+| Halifax               |        1 |
+| Winnipeg              |        1 |
+| Yellowknife           |        1 |
+| Lisbon                |        1 |
+| Porto                 |        1 |
+| Berlin                |        1 |
+| Frankfurt             |        1 |
+| Berlin                |        1 |
+| Paris                 |        1 |
+| Paris                 |        1 |
+| Lyon                  |        1 |
+| Bordeaux              |        1 |
+| Dijon                 |        1 |
+| Helsinki              |        1 |
+| Budapest              |        1 |
+| Dublin                |        1 |
+| Rome                  |        1 |
+| Amsterdam             |        1 |
+| Warsaw                |        1 |
+| Madrid                |        1 |
+| Stockholm             |        1 |
+| London                |        1 |
+| London                |        1 |
+| Edinburgh             |        1 |
+| Sidney                |        1 |
+| Buenos Aires          |        1 |
+| Santiago              |        1 |
+| Delhi                 |        1 |
+| Bangalore             |        1 |
++-----------------------+----------+
+59 rows in set (0.00 sec)
+
+mysql> select Customer.CustomerId, count(*) from Customer group by City;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Chinook.Customer.CustomerId' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> SELECT COUNT(city) FROM Customer WHERE city = "Berlin";
++-------------+
+| COUNT(city) |
++-------------+
+|           2 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> Challenge 2: How much has been made in sales for the track "The Woman King". Expected : 3.98
+    -> 
+    -> You'll need to find how many sales there are for each track in the InvoiceLine table, multiply by the Unit Price, join to the Track table to bring in the Track Name, and filter to find the details for "The Woman King";
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Challenge 2: How much has been made in sales for the track "The Woman King". Exp' at line 1
+mysql> SELECT SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity), Track.Name AS Track FROM InvoiceLine
+    -> JOIN Track ON InvoiceLine.TrackId = Track.TrackId
+    -> WHERE Track.Name = "The Woman King";
++---------------------------------------------------+----------------+
+| SUM(InvoiceLine.UnitPrice * InvoiceLine.Quantity) | Track          |
++---------------------------------------------------+----------------+
+|                                              3.98 | The Woman King |
++---------------------------------------------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> Challenge 3: Create a list of the top 5 acts by number of tracks. The table should include the name of the artist and the number of tracks they have.
+    -> 
+    ->             Iron Maiden    213
+    ->             U2            135
+    ->             Led Zeppelin114
+    ->             Metallica    112
+    ->             Deep Purple    92
+    ->             
+    -> You will need to link from the Track;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Challenge 3: Create a list of the top 5 acts by number of tracks. The table shou' at line 1
+mysql> SELECT Artist.Name AS Artist, COUNT(Track.TrackId) AS Track FROM Artist
+    -> JOIN Album ON Artist.ArtistId = Album.ArtistId
+    -> JOIN Track ON Album.AlbumId = Track.AlbumId
+    -> GROUP BY Artist.Name
+    -> ORDER BY COUNT(Artist.Name)
+    -> DESC LIMIT 5;
++--------------+-------+
+| Artist       | Track |
++--------------+-------+
+| Iron Maiden  |   213 |
+| U2           |   135 |
+| Led Zeppelin |   114 |
+| Metallica    |   112 |
+| Lost         |    92 |
++--------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> tee insert.txt

@@ -1,0 +1,153 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Chinook            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> Challenge 1: How Many Customers is Employee 4 the Sales Support Agent For?
+    -> 
+    -> Expected : 20
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Challenge 1: How Many Customers is Employee 4 the Sales Support Agent For?
+
+Expe' at line 1
+mysql> show Employee
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Employee' at line 1
+mysql> SHOW COLUMNS FROM Customers;
+ERROR 1146 (42S02): Table 'Chinook.Customers' doesn't exist
+mysql> SHOW COLUMNS FROM Customer;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| CustomerId   | int         | NO   | PRI | NULL    | auto_increment |
+| FirstName    | varchar(40) | NO   |     | NULL    |                |
+| LastName     | varchar(20) | NO   |     | NULL    |                |
+| Company      | varchar(80) | YES  |     | NULL    |                |
+| Address      | varchar(70) | YES  |     | NULL    |                |
+| City         | varchar(40) | YES  |     | NULL    |                |
+| State        | varchar(40) | YES  |     | NULL    |                |
+| Country      | varchar(40) | YES  |     | NULL    |                |
+| PostalCode   | varchar(10) | YES  |     | NULL    |                |
+| Phone        | varchar(24) | YES  |     | NULL    |                |
+| Fax          | varchar(24) | YES  |     | NULL    |                |
+| Email        | varchar(60) | NO   |     | NULL    |                |
+| SupportRepId | int         | YES  | MUL | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+13 rows in set (0.00 sec)
+
+mysql> SHOW COLUMNS FROM Employee;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| EmployeeId | int         | NO   | PRI | NULL    | auto_increment |
+| LastName   | varchar(20) | NO   |     | NULL    |                |
+| FirstName  | varchar(20) | NO   |     | NULL    |                |
+| Title      | varchar(30) | YES  |     | NULL    |                |
+| ReportsTo  | int         | YES  | MUL | NULL    |                |
+| BirthDate  | datetime    | YES  |     | NULL    |                |
+| HireDate   | datetime    | YES  |     | NULL    |                |
+| Address    | varchar(70) | YES  |     | NULL    |                |
+| City       | varchar(40) | YES  |     | NULL    |                |
+| State      | varchar(40) | YES  |     | NULL    |                |
+| Country    | varchar(40) | YES  |     | NULL    |                |
+| PostalCode | varchar(10) | YES  |     | NULL    |                |
+| Phone      | varchar(24) | YES  |     | NULL    |                |
+| Fax        | varchar(24) | YES  |     | NULL    |                |
+| Email      | varchar(60) | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+15 rows in set (0.01 sec)
+
+mysql> select Count from Customer where SalesRepId = "4"
+    -> limit 0, 4;
+ERROR 1054 (42S22): Unknown column 'Count' in 'field list'
+mysql> select Count(*) from Customer where SalesRepId = "4" limit 0, 4;
+ERROR 1054 (42S22): Unknown column 'SalesRepId' in 'where clause'
+mysql> select Count(*) from Customer where SupportRepId = "4" limit 0, 4;
++----------+
+| Count(*) |
++----------+
+|       20 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> Challenge 2: How Many Customers is Jane Peacock the Sales Support Agent For?
+    -> 
+    -> You'll need to join the Employee and Customer Tables for this one.
+    '> Expected : 21;
+    '> ;
+    '> Count(*);
+    '> ;
+    '> end
+    '> esc
+    '> esc;
+    '> show columns in Employee;
+    '> show columns in Employee;
+    '> exit
+    '> 'money';
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Challenge 2: How Many Customers is Jane Peacock the Sales Support Agent For?
+
+Yo' at line 1
+mysql> select Customer.Name, Customer.SalesSupportId from Customer
+    -> inner join Employee at Customer.SupportRepId = Employee.EmployeeId
+    -> Count(*) where SupoortRepId = "Jane Peacock"
+    -> limit 0, 5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Customer.SupportRepId = Employee.EmployeeId
+Count(*) where SupoortRepId = "Jane ' at line 2
+mysql> SELECT Employee.FirstName AS Employee, COUNT(Customer.FirstName) AS Customer FROM Employee
+    -> JOIN Customer ON Customer.SupportRepId = Employee.EmployeeId
+    -> WHERE Employee.FirstName = 'Jane';
++----------+----------+
+| Employee | Customer |
++----------+----------+
+| Jane     |       21 |
++----------+----------+
+1 row in set (0.00 sec)
+
+mysql> Challenge 3: Which Media Type is most popular? How could you answer this with a single query? You probably cannot based on what you know so far. We will get there.
+    -> 
+    -> For now, you can use a separate query for each media type so see how many tracks use it. Expected : MPEG audio file;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Challenge 3: Which Media Type is most popular? How could you answer this with a ' at line 1
+mysql> show columns in Invoice;
++-------------------+---------------+------+-----+---------+----------------+
+| Field             | Type          | Null | Key | Default | Extra          |
++-------------------+---------------+------+-----+---------+----------------+
+| InvoiceId         | int           | NO   | PRI | NULL    | auto_increment |
+| CustomerId        | int           | NO   | MUL | NULL    |                |
+| InvoiceDate       | datetime      | NO   |     | NULL    |                |
+| BillingAddress    | varchar(70)   | YES  |     | NULL    |                |
+| BillingCity       | varchar(40)   | YES  |     | NULL    |                |
+| BillingState      | varchar(40)   | YES  |     | NULL    |                |
+| BillingCountry    | varchar(40)   | YES  |     | NULL    |                |
+| BillingPostalCode | varchar(10)   | YES  |     | NULL    |                |
+| Total             | decimal(10,2) | NO   |     | NULL    |                |
++-------------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> show columns InvoiceLine;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'InvoiceLine' at line 1
+mysql> show columns in InvoiceLine;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| InvoiceLineId | int           | NO   | PRI | NULL    | auto_increment |
+| InvoiceId     | int           | NO   | MUL | NULL    |                |
+| TrackId       | int           | NO   | MUL | NULL    |                |
+| UnitPrice     | decimal(10,2) | NO   |     | NULL    |                |
+| Quantity      | int           | NO   |     | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select Tracks.Name as Track, count(MediaType.Name desc) from Track
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'desc) from Track' at line 1
+mysql> select Track.Name as Track, count(MediaType.Name) from Track;
+ERROR 1054 (42S22): Unknown column 'MediaType.Name' in 'field list'
+mysql> tee min.txt

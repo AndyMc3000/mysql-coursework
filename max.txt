@@ -1,0 +1,15 @@
+mysql> Challenge 1: On what date was our most recent employee hired?
+    -> 
+    -> Expected : 2004-03-04 00:00:00;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Challenge 1: On what date was our most recent employee hired?
+
+Expected : 2004-0' at line 1
+mysql> select max(HireDate) from Employee;
++---------------------+
+| max(HireDate)       |
++---------------------+
+| 2004-03-04 00:00:00 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> tee groupby.txt;

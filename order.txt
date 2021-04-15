@@ -1,0 +1,132 @@
+mysql> select InvoiceDate, BillingAddress, Total from Invoices
+    -> order by IncoiceDate desc
+    -> limit 0, 4;
+ERROR 1146 (42S02): Table 'Chinook.Invoices' doesn't exist
+mysql> select InvoiceDate, BillingAddress, Total from Invoice order by IncoiceDate desc limit 0, 4;
+ERROR 1054 (42S22): Unknown column 'IncoiceDate' in 'order clause'
+mysql> select InvoiceDate, BillingAddress, Total from Invoice order by InvoiceDate desc limit 0, 4;
++---------------------+-------------------------------------------+-------+
+| InvoiceDate         | BillingAddress                            | Total |
++---------------------+-------------------------------------------+-------+
+| 2013-12-22 00:00:00 | 12,Community Centre                       |  1.99 |
+| 2013-12-14 00:00:00 | Porthaninkatu 9                           | 13.86 |
+| 2013-12-09 00:00:00 | Rua dos Campeões Europeus de Viena, 4350  |  8.91 |
+| 2013-12-06 00:00:00 | 796 Dundas Street West                    |  5.94 |
++---------------------+-------------------------------------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> EmployeeId, LastName, FirstName, HireDate from Employee
+    -> order by HireDate desc
+    -> limit 0, 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'EmployeeId, LastName, FirstName, HireDate from Employee
+order by HireDate desc
+l' at line 1
+mysql> select EmployeeId, LastName, FirstName, HireDate from Employee order by HireDate desc limit 0, 3;
++------------+----------+-----------+---------------------+
+| EmployeeId | LastName | FirstName | HireDate            |
++------------+----------+-----------+---------------------+
+|          8 | Callahan | Laura     | 2004-03-04 00:00:00 |
+|          7 | King     | Robert    | 2004-01-02 00:00:00 |
+|          5 | Johnson  | Steve     | 2003-10-17 00:00:00 |
++------------+----------+-----------+---------------------+
+3 rows in set (0.00 sec)
+
+mysql> select EmployeeId, LastName, FirstName, HireDate from Employee order by HireDate desc limit 0, 10;
++------------+----------+-----------+---------------------+
+| EmployeeId | LastName | FirstName | HireDate            |
++------------+----------+-----------+---------------------+
+|          8 | Callahan | Laura     | 2004-03-04 00:00:00 |
+|          7 | King     | Robert    | 2004-01-02 00:00:00 |
+|          5 | Johnson  | Steve     | 2003-10-17 00:00:00 |
+|          6 | Mitchell | Michael   | 2003-10-17 00:00:00 |
+|          4 | Park     | Margaret  | 2003-05-03 00:00:00 |
+|          1 | Adams    | Andrew    | 2002-08-14 00:00:00 |
+|          2 | Edwards  | Nancy     | 2002-05-01 00:00:00 |
+|          3 | Peacock  | Jane      | 2002-04-01 00:00:00 |
++------------+----------+-----------+---------------------+
+8 rows in set (0.00 sec)
+
+mysql> select EmployeeId, LastName, FirstName, HireDate from Employee order by HireDate desc and EmployeeId limit 0, 4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and EmployeeId limit 0, 4' at line 1
+mysql> select EmployeeId, LastName, FirstName, HireDate from Employee order by HireDate des, EmployeeId limit 0, 4;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'des, EmployeeId limit 0, 4' at line 1
+mysql> select EmployeeId, LastName, FirstName, HireDate from Employee order by HireDate desc, EmployeeId limit 0, 4;
++------------+----------+-----------+---------------------+
+| EmployeeId | LastName | FirstName | HireDate            |
++------------+----------+-----------+---------------------+
+|          8 | Callahan | Laura     | 2004-03-04 00:00:00 |
+|          7 | King     | Robert    | 2004-01-02 00:00:00 |
+|          5 | Johnson  | Steve     | 2003-10-17 00:00:00 |
+|          6 | Mitchell | Michael   | 2003-10-17 00:00:00 |
++------------+----------+-----------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> select EmployeeId, LastName, FirstName, HireDate from Employee order by HireDate desc, EmployeeId desc limit 0, 4;
++------------+----------+-----------+---------------------+
+| EmployeeId | LastName | FirstName | HireDate            |
++------------+----------+-----------+---------------------+
+|          8 | Callahan | Laura     | 2004-03-04 00:00:00 |
+|          7 | King     | Robert    | 2004-01-02 00:00:00 |
+|          6 | Mitchell | Michael   | 2003-10-17 00:00:00 |
+|          5 | Johnson  | Steve     | 2003-10-17 00:00:00 |
++------------+----------+-----------+---------------------+
+4 rows in set (0.00 sec)
+
+mysql> select EmployeeId, LastName, FirstName, HireDate from Employee order by HireDate desc, EmployeeId desc limit 0, 3;
++------------+----------+-----------+---------------------+
+| EmployeeId | LastName | FirstName | HireDate            |
++------------+----------+-----------+---------------------+
+|          8 | Callahan | Laura     | 2004-03-04 00:00:00 |
+|          7 | King     | Robert    | 2004-01-02 00:00:00 |
+|          6 | Mitchell | Michael   | 2003-10-17 00:00:00 |
++------------+----------+-----------+---------------------+
+3 rows in set (0.00 sec)
+
+mysql> show invoice;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'invoice' at line 1
+mysql> show columns from Invoice;
++-------------------+---------------+------+-----+---------+----------------+
+| Field             | Type          | Null | Key | Default | Extra          |
++-------------------+---------------+------+-----+---------+----------------+
+| InvoiceId         | int           | NO   | PRI | NULL    | auto_increment |
+| CustomerId        | int           | NO   | MUL | NULL    |                |
+| InvoiceDate       | datetime      | NO   |     | NULL    |                |
+| BillingAddress    | varchar(70)   | YES  |     | NULL    |                |
+| BillingCity       | varchar(40)   | YES  |     | NULL    |                |
+| BillingState      | varchar(40)   | YES  |     | NULL    |                |
+| BillingCountry    | varchar(40)   | YES  |     | NULL    |                |
+| BillingPostalCode | varchar(10)   | YES  |     | NULL    |                |
+| Total             | decimal(10,2) | NO   |     | NULL    |                |
++-------------------+---------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> select Customer.Name, InvoiceDate, Invoice.Total from Invoice 
+    -> join Customer on Invoice.CustomerId = Customer.CustomerId
+    -> order by Total desc, InvoiceDate desc 
+    -> limit 0, 10;
+ERROR 1054 (42S22): Unknown column 'Customer.Name' in 'field list'
+mysql> SELECT 
+    ->     concat(Customer.FirstName, " ", Customer.LastName) as Name,
+    ->     Invoice.InvoiceDate as Date,
+    ->     Invoice.Total
+    -> FROM Invoice
+    -> INNER JOIN Customer ON Invoice.CustomerId = Customer.CustomerId
+    -> ORDER BY Total DESC, InvoiceDate DESC
+    -> LIMIT 10;
++-------------------------+---------------------+-------+
+| Name                    | Date                | Total |
++-------------------------+---------------------+-------+
+| Helena Holý             | 2013-11-13 00:00:00 | 25.86 |
+| Richard Cunningham      | 2012-08-05 00:00:00 | 23.86 |
+| Hugh O'Reilly           | 2011-04-28 00:00:00 | 21.86 |
+| Ladislav Kovács         | 2010-02-18 00:00:00 | 21.86 |
+| Victor Stevens          | 2011-05-29 00:00:00 | 18.86 |
+| Astrid Gruber           | 2010-01-18 00:00:00 | 18.86 |
+| Luis Rojas              | 2010-01-13 00:00:00 | 17.91 |
+| Isabelle Mercier        | 2012-10-06 00:00:00 | 16.86 |
+| František Wichterlová   | 2012-09-05 00:00:00 | 16.86 |
+| Bjørn Hansen            | 2011-06-29 00:00:00 | 15.86 |
++-------------------------+---------------------+-------+
+10 rows in set (0.00 sec)
+
+mysql> tee 'count.text';

@@ -1,0 +1,85 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Chinook            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> CHallenge 1: Insert the remaining Tracks for the Album Boy (except for the last 2-3, insert those as part of Challenge Three)
+    -> 
+    -> Follow the example in the lesson except with different track names and milliseconds;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CHallenge 1: Insert the remaining Tracks for the Album Boy (except for the last ' at line 1
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("Twilight", 348, 2, 1, "U2", 210000, 1234, 0.99);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Chinook`.`Track`, CONSTRAINT `FK_TrackAlbumId` FOREIGN KEY (`AlbumId`) REFERENCES `Album` (`AlbumId`))
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("An Cat Dubh", 348, 2, 1, "U2", 110000, 1234, 0.99);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Chinook`.`Track`, CONSTRAINT `FK_TrackAlbumId` FOREIGN KEY (`AlbumId`) REFERENCES `Album` (`AlbumId`))
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("Into the Heart", 348, 2, 1, "U2", 200000, 1234, 0.99);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Chinook`.`Track`, CONSTRAINT `FK_TrackAlbumId` FOREIGN KEY (`AlbumId`) REFERENCES `Album` (`AlbumId`))
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("Out of Control", 348, 2, 1, "U2", 100000, 1234, 0.99);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Chinook`.`Track`, CONSTRAINT `FK_TrackAlbumId` FOREIGN KEY (`AlbumId`) REFERENCES `Album` (`AlbumId`))
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("Stories for Boys", 348, 2, 1, "U2", 150000, 1234, 0.99);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Chinook`.`Track`, CONSTRAINT `FK_TrackAlbumId` FOREIGN KEY (`AlbumId`) REFERENCES `Album` (`AlbumId`))
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("The Ocean", 348, 2, 1, "U2", 175000, 1234, 0.99);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Chinook`.`Track`, CONSTRAINT `FK_TrackAlbumId` FOREIGN KEY (`AlbumId`) REFERENCES `Album` (`AlbumId`))
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("A Day Without Me", 348, 2, 1, "U2", 185000, 1234, 0.99);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Chinook`.`Track`, CONSTRAINT `FK_TrackAlbumId` FOREIGN KEY (`AlbumId`) REFERENCES `Album` (`AlbumId`))
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("Twilight", 348, 2, 1, "U2", 210000, 1234, 0.99);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Chinook`.`Track`, CONSTRAINT `FK_TrackAlbumId` FOREIGN KEY (`AlbumId`) REFERENCES `Album` (`AlbumId`))
+mysql> INSERT INTO Album (Title, ArtistId)
+    -> VALUES ("Boy", 150);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("Twilight", 348, 2, 1, "U2", 210000, 1234, 0.99);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("An Cat Dubh", 348, 2, 1, "U2", 110000, 1234, 0.99);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("Into the Heart", 348, 2, 1, "U2", 200000, 1234, 0.99);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("Out of Control", 348, 2, 1, "U2", 100000, 1234, 0.99);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("Stories for Boys", 348, 2, 1, "U2", 150000, 1234, 0.99);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("The Ocean", 348, 2, 1, "U2", 175000, 1234, 0.99);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice) VALUES ("A Day Without Me", 348, 2, 1, "U2", 185000, 1234, 0.99);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> Challenge 2: Run the following Query. It gives an error. Read and understand the error, then fix the problem
+    -> 
+    ->             Insert into Track (Name, AlbumId, GenreId, Composer, Milliseconds, Bytes, UnitPrice)
+    ->             values("Extra Track", 348, 1, "U2", 290000, 1234, 0.99);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Challenge 2: Run the following Query. It gives an error. Read and understand the' at line 1
+mysql>             
+mysql> Check if the values correspond to the number of columns in the table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'if the values correspond to the number of columns in the table' at line 1
+mysql> Insert into Track (Name, AlbumId, GenreId, Composer, Milliseconds, Bytes, UnitPrice)
+    -> Check if the values correspond to the number of columns in the table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Check if the values correspond to the number of columns in the table' at line 2
+mysql> insert into Track (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice)
+    -> values ("Extra Track", 348, 2, 1, "U2", 290000, 1234, 0.99);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> Challenge 3: Use one insert statement to insert multiple tracks at the same time
+    -> 
+    -> Use Google to find the correct syntax for the Insert statement to do this;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Challenge 3: Use one insert statement to insert multiple tracks at the same time' at line 1
+mysql> INSERT INTO Track
+    ->     (Name, AlbumId, MediaTypeId, GenreId, Composer, Milliseconds, Bytes, UnitPrice)
+    -> VALUES
+    ->     ("Another Time, Another Place", 348, 2, 1, "U2", 210000, 1234, 0.99),
+    ->     ("The Electric Co.", 348, 2, 1, "U2", 200000, 1234, 0.99),
+    ->     ("Shadows and Tall Trees", 348, 2, 1, "U2", 150000, 1234, 0.99);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
